@@ -1,0 +1,35 @@
+/* ---------------------------------------------------------------
+Import partials
+--------------------------------------------------------------- */
+
+@import 'reset';
+@import 'general';
+@import 'header';
+@import 'form';
+
+/* ---------------------------------------------------------------
+All Styles
+--------------------------------------------------------------- */
+
+// modular class
+
+.container {
+  max-width: 60rem;
+  margin: 0 auto;
+}
+
+.flex {
+  display: flex;
+}
+
+.item-center {
+  align-items: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.active {
+  color: #8d8888 !important;
+}
