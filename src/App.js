@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+let articleURL = 'https://mighty-oasis-08080.herokuapp.com/api/articles';
+
+class App extends React.Component {
+  state = {
+    articles: [],
+  };
+  componentDidMount() {
+    fetch(articleURL)
+      .then((res) => res.json())
+      .then(({ articles }) => {
+        this.setState({ articles });
+      });
+  }
+  render() {
+    return (
+      <ul>
+        {this.state.articles.map((article) => {
+          return <li>{article.title}</li>;
+        })}
+      </ul>
+    );
+  }
 }
 
 export default App;
