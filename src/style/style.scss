@@ -6,13 +6,15 @@ Import partials
 @import 'general';
 @import 'header';
 @import 'form';
-
+@import 'banner';
+@import 'home';
+@import 'post';
+@import 'sidebar';
+@import 'feednav';
 /* ---------------------------------------------------------------
 All Styles
 --------------------------------------------------------------- */
-
 // modular class
-
 .container {
   max-width: 60rem;
   margin: 0 auto;
@@ -32,4 +34,11 @@ All Styles
 
 .active {
   color: #8d8888 !important;
+}
+
+.btn {
+  border: none;
+  outline: none;
+  padding: 0.7rem 1.2rem;
+  display: inline-block;
 }

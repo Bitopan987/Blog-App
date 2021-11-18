@@ -1,24 +1,28 @@
-import { Navlink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 function Header(props) {
   return (
     <header className="navbar">
       <div className="container flex justify-between item-center">
-        <Navlink className="brand" href="/">
+        <NavLink className="brand" to="/">
           <img alt="Brand Logo" src="/images/logo.svg" />
-        </Navlink>
+        </NavLink>
         <nav>
           <ul className="nav-menu flex item-center ">
             <li className="nav-item">
-              <Navlink className="active" to="/">
+              <NavLink activeClassName="active" to="/" exact>
                 Home
-              </Navlink>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <Navlink to="/signup">Signup</Navlink>
+              <NavLink activeClassName="active" to="/signup">
+                Signup
+              </NavLink>
             </li>
             <li className="nav-item">
-              <Navlink to="/login">Login</Navlink>
+              <NavLink activeClassName="active" to="/login">
+                Login
+              </NavLink>
             </li>
           </ul>
         </nav>
