@@ -5,6 +5,7 @@ Import partials
    v2.0 | 20110126
    License: none (public domain)
 */
+@import url(/home/bitopan/Desktop/blog-app/src/style/loader.css);
 html,
 body,
 div,
@@ -143,7 +144,7 @@ General
 *::before,
 *::after {
   -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+          box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
@@ -178,7 +179,7 @@ body {
 .navbar {
   background-color: #f4f4f7;
   -webkit-box-shadow: 2px 2px 2px 1px #b9b5b533;
-  box-shadow: 2px 2px 2px 1px #b9b5b533;
+          box-shadow: 2px 2px 2px 1px #b9b5b533;
   padding: 0.7rem 0;
 }
 
@@ -271,9 +272,51 @@ body {
   width: 68%;
 }
 
-.post img {
+.Pagination {
+  background-color: antiquewhite;
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.Pagination p {
+  padding: 0.8rem 0;
+  font-weight: 700;
+}
+
+.Pagination span {
+  border: 2px solid #26a026;
+  padding: 1rem;
+  display: inline-block;
+  color: #26a026;
+  font-size: 1.3rem;
+}
+
+.post .author-img {
   width: 3rem;
   height: 3rem;
+  border-radius: 50%;
+}
+
+.post .post-details {
+  padding-left: 0.6rem;
+}
+
+.post .link {
+  text-decoration: none;
+}
+
+.post .post-author {
+  padding-bottom: 0.3rem;
+  color: #2a792a;
+  text-transform: capitalize;
+}
+
+.post .post-time {
+  color: gray;
+}
+
+.post footer {
+  margin-bottom: 1rem;
 }
 
 .tags {
@@ -307,7 +350,7 @@ body {
 .feed-nav hr {
   border: none;
   border-bottom: 2px solid #e6e1e1;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 /* ---------------------------------------------------------------
@@ -326,14 +369,14 @@ All Styles
 
 .item-center {
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .justify-between {
   -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .active {

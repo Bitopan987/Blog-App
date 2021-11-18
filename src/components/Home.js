@@ -2,6 +2,7 @@ import Banner from './Banner';
 import FeedNav from './FeedNav';
 import Posts from './Posts';
 import Sidebar from './Sidebar';
+import Pagination from './Pagination';
 
 function Home(props) {
   return (
@@ -11,6 +12,7 @@ function Home(props) {
         <section className="main">
           <FeedNav />
           <Posts />
+          <Pagination />
         </section>
         <Sidebar />
       </div>
