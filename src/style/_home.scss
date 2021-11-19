@@ -3,7 +3,6 @@
 }
 
 .Pagination {
-  background-color: antiquewhite;
   text-align: center;
   padding: 2rem 0;
   p {
@@ -16,5 +15,15 @@
     display: inline-block;
     color: #26a026;
     font-size: 1.3rem;
+    cursor: pointer;
+  }
+  .active {
+    background-color: #307e30;
+    color: aliceblue !important;
+  }
+  .active:hover {
+    background-color: #307e30;
+    color: aliceblue !important;
+    opacity: 0.8;
   }
 }

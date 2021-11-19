@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 function Post(props) {
-  const { author, createdAt, title, description, favouritesCount } = props;
+  const { author, createdAt, title, description } = props;
   let date = new Date(createdAt).toLocaleDateString('en-gb', {
     day: 'numeric',
     timeZone: 'utc',
@@ -23,14 +23,16 @@ function Post(props) {
             <Link to="/profile" className="link">
               <p className="post-author">{author.username}</p>
             </Link>
-            <time className="post-time" datetime="">
+            <time className="post-time" dateTime="">
               {date}
             </time>
           </div>
         </div>
         <div className="like_btn">
-          <span>&heart;</span>
-          <span>{favouritesCount}</span>
+          <div>
+            <img alt="" className="heart" src="/images/heart.png" />
+          </div>
+          <span className="favourites">1</span>
         </div>
       </header>
       <Link to="/singlepost" className="link">

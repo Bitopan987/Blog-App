@@ -5,12 +5,13 @@
   margin-top: 5rem;
   border: 2px solid #dbd8d8;
   border-radius: 5px;
-  text-align: center;
+
   h2 {
     font-size: 2.3rem;
     font-weight: 700;
     color: #4b4949;
     padding-bottom: 1rem;
+    text-align: center;
   }
   a {
     text-decoration: none;
@@ -19,6 +20,7 @@
   p {
     padding-bottom: 1rem;
     font-size: 1.3rem;
+    text-align: center;
   }
   .handleinput {
     width: 100%;
@@ -34,7 +36,7 @@
 .btn_sec {
   text-align: right;
   padding-top: 1rem;
-  button {
+  .btn_secondary {
     padding: 0.7rem 1.2rem;
     outline: none;
     border: none;
@@ -43,4 +45,15 @@
     border-radius: 7px;
     font-size: 1.3rem;
   }
+  input:disabled {
+    background-color: #c55959;
+    color: aliceblue;
+  }
+}
+
+.error {
+  color: red;
+  text-align: left;
+  padding-left: 1rem;
+  font-size: 0.9rem;
 }
