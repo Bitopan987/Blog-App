@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 function Post(props) {
-  const { author, createdAt, title, description } = props;
+  const { author, createdAt, title, description, slug } = props;
   let date = new Date(createdAt).toLocaleDateString('en-gb', {
     day: 'numeric',
     timeZone: 'utc',
@@ -35,14 +35,14 @@ function Post(props) {
           <span className="favourites">1</span>
         </div>
       </header>
-      <Link to="/singlepost" className="link">
+      <Link to={`/article/${slug}`} className="link">
         <div className="post-body">
           <h2 className="post-title">{title}</h2>
           <p className="post-text">{description}</p>
         </div>
       </Link>
       <footer>
-        <Link className="read-more-btn link" to="singlepost">
+        <Link className="read-more-btn link" to={`/article/${slug}`}>
           Read More
         </Link>
         <hr></hr>

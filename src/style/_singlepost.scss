@@ -1,0 +1,44 @@
+.single-post {
+  .link {
+    text-decoration: none;
+  }
+  .post-banner {
+    background-color: #4a4a4d;
+    padding: 2rem 0;
+  }
+  .author-img {
+    width: 3.5rem;
+    padding-right: 0.5rem;
+  }
+  .post-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: aliceblue;
+    padding-bottom: 1rem;
+  }
+  .post-author {
+    color: #35d135;
+    padding-bottom: 0.4rem;
+    font-size: 1.4rem;
+    text-decoration: none;
+  }
+  .post-time {
+    color: #e5e8eb;
+  }
+  .single-post-body {
+    padding: 1rem 0;
+    line-height: 1.8rem;
+    font-size: 1.3rem;
+    color: gray;
+  }
+  .post-footer {
+    padding: 3rem 0;
+    p {
+      text-align: center;
+    }
+  }
+  .green {
+    text-decoration: none;
+    color: #38e738;
+  }
+}

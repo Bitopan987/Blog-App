@@ -426,6 +426,58 @@ body {
   margin-bottom: 1rem;
 }
 
+.single-post .link {
+  text-decoration: none;
+}
+
+.single-post .post-banner {
+  background-color: #4a4a4d;
+  padding: 2rem 0;
+}
+
+.single-post .author-img {
+  width: 3.5rem;
+  padding-right: 0.5rem;
+}
+
+.single-post .post-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: aliceblue;
+  padding-bottom: 1rem;
+}
+
+.single-post .post-author {
+  color: #35d135;
+  padding-bottom: 0.4rem;
+  font-size: 1.4rem;
+  text-decoration: none;
+}
+
+.single-post .post-time {
+  color: #e5e8eb;
+}
+
+.single-post .single-post-body {
+  padding: 1rem 0;
+  line-height: 1.8rem;
+  font-size: 1.3rem;
+  color: gray;
+}
+
+.single-post .post-footer {
+  padding: 3rem 0;
+}
+
+.single-post .post-footer p {
+  text-align: center;
+}
+
+.single-post .green {
+  text-decoration: none;
+  color: #38e738;
+}
+
 /* ---------------------------------------------------------------
 All Styles
 --------------------------------------------------------------- */
