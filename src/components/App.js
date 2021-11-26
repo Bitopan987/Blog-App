@@ -21,7 +21,7 @@ function App() {
         <Route path="/signup">
           <Signup />
         </Route>
-        <Route path="/article/:slug" component={SinglePost}></Route>
+        <Route path="/article/:slug" component={SinglePost} />
         <Route path="*">
           <NoMatch />
         </Route>

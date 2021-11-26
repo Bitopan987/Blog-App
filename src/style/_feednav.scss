@@ -2,11 +2,22 @@
   a {
     text-decoration: none;
     color: #287e28;
+    border-bottom: 2px solid #287e28;
+    display: inline-block;
+    padding-bottom: 0.5rem;
+    font-weight: 700;
+    margin: 1rem 0.5rem 1rem 0;
+  }
+  .active {
+    text-decoration: none;
+    color: #287e28;
     display: inline-block;
     border-bottom: 2px solid #287e28;
     padding-bottom: 0.5rem;
     font-weight: 700;
+    margin: 1rem 0.5rem 1rem 0;
   }
+
   hr {
     border: none;
     border-bottom: 2px solid #e6e1e1;

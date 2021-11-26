@@ -36,7 +36,11 @@ class Sidebar extends React.Component {
         <h2>Popular tags</h2>
         {tags.map((tag) => {
           return (
-            <button key={tag} className="btn btn_secondary">
+            <button
+              key={tag}
+              onClick={() => this.props.addTab(tag)}
+              className="btn btn_secondary"
+            >
               {tag}
             </button>
           );

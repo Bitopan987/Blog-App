@@ -13,14 +13,25 @@ class Home extends React.Component {
     articlesCount: 0,
     articlesPerPage: 10,
     activePageIndex: 1,
+    activeTab: '',
   };
 
+  removeTab = () => {
+    this.setState({ activeTab: '' });
+  };
+
+  addTab = (value) => {
+    this.setState({ activeTab: value });
+  };
   componentDidMount() {
     this.fetchData();
   }
 
   componentDidUpdate(_prevProps, prevState) {
-    if (prevState.activePageIndex !== this.state.activePageIndex) {
+    if (
+      prevState.activePageIndex !== this.state.activePageIndex ||
+      prevState.activeTab !== this.state.activeTab
+    ) {
       this.fetchData();
     }
   }
@@ -28,7 +39,13 @@ class Home extends React.Component {
   fetchData = () => {
     const limit = this.state.articlesPerPage;
     const offset = (this.state.activePageIndex - 1) * limit;
-    fetch(articlesURL + `/?offset=${offset}&limit=${limit}`)
+    const tag = this.state.activeTab;
+
+    fetch(
+      articlesURL +
+        `/?offset=${offset}&limit=${limit}` +
+        (tag && `&tag = ${tag}`)
+    )
       .then((res) => {
         if (!res.ok) {
           throw new Error(res.statusText);
@@ -51,14 +68,20 @@ class Home extends React.Component {
     this.setState({ activePageIndex: index }, this.fetchData);
   };
   render() {
-    const { articles, error, articlesCount, articlesPerPage, activePageIndex } =
-      this.state;
+    const {
+      articles,
+      error,
+      activeTab,
+      articlesCount,
+      articlesPerPage,
+      activePageIndex,
+    } = this.state;
     return (
       <main>
         <Banner />
         <div className="container flex justify-between ">
           <section className="main">
-            <FeedNav />
+            <FeedNav activeTab={activeTab} removeTab={this.removeTab} />
             <Posts articles={articles} error={error} />
             <Pagination
               articlesCount={articlesCount}
@@ -67,7 +90,7 @@ class Home extends React.Component {
               updateCurrentPageIndex={this.updateCurrentPageIndex}
             />
           </section>
-          <Sidebar />
+          <Sidebar addTab={this.addTab} />
         </div>
       </main>
     );

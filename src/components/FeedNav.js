@@ -1,18 +1,22 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
-function FeedNav() {
+
+function FeedNav(props) {
   return (
     <nav className="feed-nav">
       <ul className="flex">
-        <li className="feed-nav-item">
-          <Link className="active" to="/">
+        <li className="feed-nav-item" onClick={props.removeTab}>
+          <Link className={props.activeTab === 'activelink' && 'active'} to="/">
             Global Feed
           </Link>
         </li>
-        <li className="feed-nav-item">
-          <Link className="active" to="/">
-            #tab Feed
-          </Link>
-        </li>
+        {props.activeTab && (
+          <li className="feed-nav-item">
+            <Link className={props.activeTab && 'active'} to="/">
+              # {props.activeTab}
+            </Link>
+          </li>
+        )}
       </ul>
     </nav>
   );
