@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import validate from '../utils/validate';
+import { signupURL } from '../utils/constant';
 
 class Signup extends React.Component {
   state = {
@@ -22,16 +23,36 @@ class Signup extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+    const { username, email, password } = this.state;
+    fetch(signupURL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ user: { username, email, password } }),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          res.json().then(({ errors }) => this.setState({ errors }));
+          throw new Error('Fetch not successful');
+        }
+        return res.json();
+      })
+      .then(({ user }) => {
+        this.props.updateUser(user);
+        this.setState({ username: '', password: '', email: '' });
+      })
+      .catch((error) => console.log(error));
   };
   render() {
     const { email, username, password, errors } = this.state;
     return (
       <section className="form_section">
         <h2>Sign Up</h2>
-        <Link href="/">
+        <Link to="/login">
           <p>Have an Account?</p>
         </Link>
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <input
             className="handleinput"
             name="username"

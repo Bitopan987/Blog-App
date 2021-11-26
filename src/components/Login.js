@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import validate from '../utils/validate';
+import { loginURL } from '../utils/constant';
+import { withRouter } from 'react-router';
 
 class Login extends React.Component {
   state = {
@@ -20,16 +22,47 @@ class Login extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+    const { email, password } = this.state;
+    fetch(loginURL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ user: { email, password } }),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          res.json().then(({ errors }) =>
+            this.setState((prevState) => {
+              return {
+                ...prevState,
+                errors: {
+                  ...prevState.errors,
+                  email: 'Email or Password is incorrect',
+                },
+              };
+            })
+          );
+          throw new Error('Login is not successful');
+        }
+        return res.json();
+      })
+      .then(({ user }) => {
+        this.props.updateUser(user);
+        this.setState({ password: '', email: '' });
+        this.props.history.push('/');
+      })
+      .catch((error) => console.log('error'));
   };
   render() {
     const { email, password, errors } = this.state;
     return (
       <section className="form_section">
         <h2>Sign In</h2>
-        <Link href="/">
+        <Link to="/login">
           <p>Need an Account?</p>
         </Link>
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <input
             className="handleinput"
             name="email"
@@ -62,4 +95,4 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+export default withRouter(Login);
