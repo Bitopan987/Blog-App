@@ -42,9 +42,7 @@ class Home extends React.Component {
     const tag = this.state.activeTab;
 
     fetch(
-      articlesURL +
-        `/?offset=${offset}&limit=${limit}` +
-        (tag && `&tag = ${tag}`)
+      articlesURL + `/?offset=${offset}&limit=${limit}` + (tag && `&tag=${tag}`)
     )
       .then((res) => {
         if (!res.ok) {

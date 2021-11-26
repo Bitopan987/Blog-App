@@ -6,7 +6,7 @@ function FeedNav(props) {
     <nav className="feed-nav">
       <ul className="flex">
         <li className="feed-nav-item" onClick={props.removeTab}>
-          <Link className={props.activeTab === 'activelink' && 'active'} to="/">
+          <Link className={props.activeTab === '' && 'active'} to="/">
             Global Feed
           </Link>
         </li>
