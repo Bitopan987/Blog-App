@@ -6,6 +6,7 @@ import NoMatch from './NoMatch';
 import SinglePost from './SinglePost';
 import { Route, Switch } from 'react-router-dom';
 import React from 'react';
+import { localStorageKey, userVerifyURL } from '../utils/constant';
 
 class App extends React.Component {
   state = {
@@ -13,13 +14,29 @@ class App extends React.Component {
     user: null,
   };
 
+  componentDidMount() {
+    let storageKey = localStorage[localStorageKey];
+    if (storageKey) {
+      fetch(userVerifyURL, {
+        method: 'GET',
+        headers: {
+          authorization: `Token ${storageKey}`,
+        },
+      })
+        .then((res) => res.json())
+        .then(({ user }) => console.log({ user }));
+    }
+  }
+
   updateUser = (user) => {
     this.setState({ isLoggedIn: true, user });
+    localStorage.setItem(localStorageKey, user.token);
   };
+
   render() {
     return (
       <>
-        <Header />
+        <Header isLoggedIn={this.state.isLoggedIn} user={this.state.user} />
         <Switch>
           <Route path="/" exact>
             <Home />

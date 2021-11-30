@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import validate from '../utils/validate';
 import { signupURL } from '../utils/constant';
+import { withRouter } from 'react-router-dom';
 
 class Signup extends React.Component {
   state = {
@@ -33,16 +34,18 @@ class Signup extends React.Component {
     })
       .then((res) => {
         if (!res.ok) {
-          res.json().then(({ errors }) => this.setState({ errors }));
-          throw new Error('Fetch not successful');
+          return res.json().then(({ errors }) => {
+            return Promise.reject(errors);
+          });
         }
         return res.json();
       })
       .then(({ user }) => {
         this.props.updateUser(user);
         this.setState({ username: '', password: '', email: '' });
+        this.props.history.push('/');
       })
-      .catch((error) => console.log(error));
+      .catch((errors) => this.setState({ errors }));
   };
   render() {
     const { email, username, password, errors } = this.state;
@@ -94,4 +97,4 @@ class Signup extends React.Component {
   }
 }
 
-export default Signup;
+export default withRouter(Signup);

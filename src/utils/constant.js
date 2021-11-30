@@ -7,4 +7,17 @@ const tagsURL = ROOT_URL + 'tags';
 const signupURL = ROOT_URL + 'users';
 
 const loginURL = ROOT_URL + 'users/login';
-export { ROOT_URL, articlesURL, tagsURL, signupURL, loginURL };
+
+const userVerifyURL = ROOT_URL + 'user';
+
+const localStorageKey = 'app_user';
+
+export {
+  ROOT_URL,
+  articlesURL,
+  tagsURL,
+  signupURL,
+  loginURL,
+  localStorageKey,
+  userVerifyURL,
+};
