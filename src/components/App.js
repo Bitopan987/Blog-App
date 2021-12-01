@@ -7,11 +7,14 @@ import SinglePost from './SinglePost';
 import { Route, Switch } from 'react-router-dom';
 import React from 'react';
 import { localStorageKey, userVerifyURL } from '../utils/constant';
+import FullPageSpinner from './FullPageSpinner';
+import NewPost from './NewPost';
 
 class App extends React.Component {
   state = {
     isLoggedIn: false,
     user: null,
+    isVerifying: true,
   };
 
   componentDidMount() {
@@ -23,17 +26,30 @@ class App extends React.Component {
           authorization: `Token ${storageKey}`,
         },
       })
-        .then((res) => res.json())
-        .then(({ user }) => console.log({ user }));
+        .then((res) => {
+          if (res.ok) {
+            return res.json();
+          }
+          return res.json().then(({ errors }) => {
+            return Promise.reject(errors);
+          });
+        })
+        .then(({ user }) => this.updateUser(user))
+        .catch((errors) => console.log(errors));
+    } else {
+      this.setState({ isVerifying: false });
     }
   }
 
   updateUser = (user) => {
-    this.setState({ isLoggedIn: true, user });
+    this.setState({ isLoggedIn: true, user, isVerifying: false });
     localStorage.setItem(localStorageKey, user.token);
   };
 
   render() {
+    if (this.state.isVerifying) {
+      return <FullPageSpinner />;
+    }
     return (
       <>
         <Header isLoggedIn={this.state.isLoggedIn} user={this.state.user} />
@@ -46,6 +62,9 @@ class App extends React.Component {
           </Route>
           <Route path="/signup">
             <Signup updateUser={this.updateUser} />
+          </Route>
+          <Route path="new-post">
+            <NewPost />
           </Route>
           <Route path="/article/:slug" component={SinglePost} />
           <Route path="*">
