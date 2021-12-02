@@ -262,6 +262,10 @@ body {
   font-size: 0.9rem;
 }
 
+.article {
+  margin-bottom: 2rem;
+}
+
 .banner {
   background-color: #0ca045;
   text-align: center;
@@ -296,12 +300,17 @@ body {
 }
 
 .Pagination span {
-  border: 2px solid #26a026;
+  border: 1px solid #dfe2df;
   padding: 1rem;
   display: inline-block;
   color: #26a026;
   font-size: 1.3rem;
   cursor: pointer;
+}
+
+.Pagination span:hover {
+  background-color: #307e30;
+  color: aliceblue !important;
 }
 
 .Pagination .active {
@@ -432,7 +441,7 @@ body {
 
 .feed-nav hr {
   border: none;
-  border-bottom: 2px solid #e6e1e1;
+  border-bottom: 2px solid #f0eaea;
   margin-bottom: 1rem;
 }
 

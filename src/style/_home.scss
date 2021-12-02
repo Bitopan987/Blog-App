@@ -10,12 +10,16 @@
     font-weight: 700;
   }
   span {
-    border: 2px solid #26a026;
+    border: 1px solid #dfe2df;
     padding: 1rem;
     display: inline-block;
     color: #26a026;
     font-size: 1.3rem;
     cursor: pointer;
+    &:hover {
+      background-color: #307e30;
+      color: aliceblue !important;
+    }
   }
   .active {
     background-color: #307e30;

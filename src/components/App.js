@@ -56,23 +56,26 @@ class App extends React.Component {
       <>
         <Header isLoggedIn={this.state.isLoggedIn} user={this.state.user} />
         {this.state.isLoggedIn ? (
-          <AuthenticatedApp />
+          <AuthenticatedApp user={this.state.user} />
         ) : (
-          <UnauthenticatedApp updateUser={this.updateUser} />
+          <UnauthenticatedApp
+            updateUser={this.updateUser}
+            user={this.state.user}
+          />
         )}
       </>
     );
   }
 }
 
-function AuthenticatedApp() {
+function AuthenticatedApp(props) {
   return (
     <Switch>
       <Route path="/" exact>
         <Home />
       </Route>
       <Route path="/new-post">
-        <NewPost />
+        <NewPost user={props.user} />
       </Route>
       <Route path="/settings">
         <Setting />
@@ -80,7 +83,9 @@ function AuthenticatedApp() {
       <Route path="/profile">
         <Profile />
       </Route>
-      <Route path="/article/:slug" component={SinglePost} />
+      <Route path="/article/:slug">
+        <SinglePost user={props.user} />
+      </Route>
       <Route path="*">
         <NoMatch />
       </Route>
@@ -100,7 +105,9 @@ function UnauthenticatedApp(props) {
       <Route path="/signup">
         <Signup updateUser={props.updateUser} />
       </Route>
-      <Route path="/article/:slug" component={SinglePost} />
+      <Route path="/article/:slug">
+        <SinglePost user={props.user} />
+      </Route>
       <Route path="*">
         <NoMatch />
       </Route>

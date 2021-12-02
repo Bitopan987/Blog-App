@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { articlesURL } from '../utils/constant';
 import Loader from './Loader';
 
@@ -61,23 +61,27 @@ class SinglePost extends React.Component {
         <div className="container">
           <div className="single-post-body">{article.body}</div>
         </div>
-        <footer className="post-footer">
-          <div className="container">
-            <p>
-              <Link to="/login" className="green">
-                Sign In
-              </Link>{' '}
-              or{' '}
-              <Link to="/signup" className="green">
-                Sign Up
-              </Link>{' '}
-              to add comments on this article.
-            </p>
-          </div>
-        </footer>
+        {this.props.user === null ? (
+          <footer className="post-footer">
+            <div className="container">
+              <p>
+                <Link to="/login" className="green">
+                  Sign In
+                </Link>{' '}
+                or{' '}
+                <Link to="/signup" className="green">
+                  Sign Up
+                </Link>{' '}
+                to add comments on this article.
+              </p>
+            </div>
+          </footer>
+        ) : (
+          ''
+        )}
       </article>
     );
   }
 }
 
-export default SinglePost;
+export default withRouter(SinglePost);
