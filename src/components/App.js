@@ -9,6 +9,8 @@ import React from 'react';
 import { localStorageKey, userVerifyURL } from '../utils/constant';
 import FullPageSpinner from './FullPageSpinner';
 import NewPost from './NewPost';
+import Profile from './Profile';
+import Setting from './Setting';
 
 class App extends React.Component {
   state = {
@@ -53,27 +55,57 @@ class App extends React.Component {
     return (
       <>
         <Header isLoggedIn={this.state.isLoggedIn} user={this.state.user} />
-        <Switch>
-          <Route path="/" exact>
-            <Home />
-          </Route>
-          <Route path="/login">
-            <Login updateUser={this.updateUser} />
-          </Route>
-          <Route path="/signup">
-            <Signup updateUser={this.updateUser} />
-          </Route>
-          <Route path="new-post">
-            <NewPost />
-          </Route>
-          <Route path="/article/:slug" component={SinglePost} />
-          <Route path="*">
-            <NoMatch />
-          </Route>
-        </Switch>
+        {this.state.isLoggedIn ? (
+          <AuthenticatedApp />
+        ) : (
+          <UnauthenticatedApp updateUser={this.updateUser} />
+        )}
       </>
     );
   }
+}
+
+function AuthenticatedApp() {
+  return (
+    <Switch>
+      <Route path="/" exact>
+        <Home />
+      </Route>
+      <Route path="/new-post">
+        <NewPost />
+      </Route>
+      <Route path="/settings">
+        <Setting />
+      </Route>
+      <Route path="/profile">
+        <Profile />
+      </Route>
+      <Route path="/article/:slug" component={SinglePost} />
+      <Route path="*">
+        <NoMatch />
+      </Route>
+    </Switch>
+  );
+}
+
+function UnauthenticatedApp(props) {
+  return (
+    <Switch>
+      <Route path="/" exact>
+        <Home />
+      </Route>
+      <Route path="/login">
+        <Login updateUser={props.updateUser} />
+      </Route>
+      <Route path="/signup">
+        <Signup updateUser={props.updateUser} />
+      </Route>
+      <Route path="/article/:slug" component={SinglePost} />
+      <Route path="*">
+        <NoMatch />
+      </Route>
+    </Switch>
+  );
 }
 
 export default App;
