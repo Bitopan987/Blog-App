@@ -1,0 +1,61 @@
+.profile_header {
+  padding: 2rem 0;
+  background-color: #e7e1e1;
+  .setting_wrapper {
+    text-align: right;
+  }
+  .setting {
+    text-decoration: none;
+    color: gray;
+    p {
+      display: inline-block;
+
+      text-align: right;
+      border: 2px solid #b9b8b8;
+      padding: 0.5rem 1.2rem;
+      border-radius: 5px;
+      &:hover {
+        background-color: #b8b4b4;
+        color: aliceblue;
+      }
+    }
+  }
+  .profile_banner {
+    text-align: center;
+    padding: 1rem 0 3rem 0;
+    img {
+      height: 6rem;
+      width: 6rem;
+    }
+    p {
+      color: #a09c9c;
+      padding: 0.4rem 0;
+      font-size: 1.5rem;
+    }
+  }
+}
+
+.profile {
+  padding: 3rem 0;
+  .nav {
+    border-bottom: 2px solid #dad6d6;
+    margin-bottom: 1.5rem;
+    button {
+      padding-bottom: 0.5rem;
+      font-weight: 700;
+      border: none;
+      outline: none;
+      display: inline-block;
+      background-color: transparent;
+      margin-right: 0.5rem;
+    }
+  }
+  .active {
+    text-decoration: none;
+    color: #287e28 !important;
+    display: inline-block;
+    border-bottom: 2px solid #287e28 !important;
+    padding-bottom: 0.5rem;
+    font-weight: 700;
+  }
+}

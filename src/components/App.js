@@ -81,7 +81,7 @@ function AuthenticatedApp(props) {
         <Setting />
       </Route>
       <Route path="/profile">
-        <Profile />
+        <Profile user={props.user} />
       </Route>
       <Route path="/article/:slug">
         <SinglePost user={props.user} />
