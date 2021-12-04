@@ -6,28 +6,21 @@ import { articlesURL } from '../utils/constant';
 
 class Profile extends React.Component {
   state = {
-    activeTab: 'my',
+    activeTab: 'author',
+    articles: [],
   };
 
   fetchData = () => {
-    const limit = this.state.articlesPerPage;
-    const offset = (this.state.activePageIndex - 1) * limit;
-    const tag = this.state.activeTab;
-
-    fetch(
-      articlesURL + `/?offset=${offset}&limit=${limit}` + (tag && `&tag=${tag}`)
-    )
+    fetch(articlesURL + `?/${this.state.activeTab}=${this.props.user.username}`)
       .then((res) => {
         if (!res.ok) {
-          throw new Error(res.statusText);
+          throw new Error('Can not fetch data for specific user');
         }
         return res.json();
       })
       .then((data) => {
         this.setState({
           articles: data.articles,
-          error: '',
-          articlesCount: data.articlesCount,
         });
       })
       .catch((err) => {
@@ -35,22 +28,38 @@ class Profile extends React.Component {
       });
   };
 
+  componentDidMount() {
+    this.fetchData();
+  }
+
+  handleActive = (tab) => {
+    this.setState({ activeTab: tab }, () => {
+      this.fetchData();
+    });
+  };
   render() {
     const { activeTab } = this.state;
+    const { user } = this.props;
     return (
       <section>
-        <ProfileBanner />
+        <ProfileBanner user={user} />
         <div className="profile">
           <div className="profile_wrapper container">
             <div className="nav">
-              <button className={activeTab === 'my' && 'active'}>
+              <button
+                onClick={() => this.handleActive('author')}
+                className={activeTab === 'author' && 'active'}
+              >
                 My Articles
               </button>
-              <button className={activeTab === 'fav' && 'active'}>
+              <button
+                onClick={() => this.handleActive('favourited')}
+                className={activeTab === 'favourited' && 'active'}
+              >
                 Favourited Articles
               </button>
             </div>
-            <Posts articles={[]} />
+            <Posts articles={this.state.articles} />
             <Pagination />
           </div>
         </div>
