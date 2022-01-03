@@ -11,12 +11,14 @@ import FullPageSpinner from './FullPageSpinner';
 import NewPost from './NewPost';
 import Profile from './Profile';
 import Setting from './Setting';
+import PostEdit from './PostEdit';
 
 class App extends React.Component {
   state = {
     isLoggedIn: false,
     user: null,
     isVerifying: true,
+    article: null,
   };
 
   componentDidMount() {
@@ -57,6 +59,13 @@ class App extends React.Component {
     localStorage.clear();
   };
 
+  // editArticleFn = (article) => {
+  //   console.log(article);
+  //   this.setState({
+  //     article,
+  //   });
+  // };
+
   render() {
     if (this.state.isVerifying) {
       return <FullPageSpinner />;
@@ -81,7 +90,7 @@ function AuthenticatedApp(props) {
   return (
     <Switch>
       <Route path="/" exact>
-        <Home />
+        <Home user={props.user} />
       </Route>
       <Route path="/new-post">
         <NewPost user={props.user} />
@@ -95,6 +104,10 @@ function AuthenticatedApp(props) {
       <Route path="/article/:slug">
         <SinglePost user={props.user} />
       </Route>
+      <Route path="/editor/:slug">
+        <PostEdit user={props.user} />
+      </Route>
+
       <Route path="*">
         <NoMatch />
       </Route>

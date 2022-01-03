@@ -62,6 +62,46 @@ class Home extends React.Component {
       });
   };
 
+  favoriteArticle = (slug) => {
+    fetch(articlesURL + `/${slug}/favorite`, {
+      method: 'POST',
+      headers: {
+        authorization: `Token ${this.props.user.token}`,
+      },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          return res.json().then(({ errors }) => {
+            return Promise.reject(errors);
+          });
+        }
+        return res.json();
+      })
+      .then(({ article }) => {
+        this.fetchData();
+      });
+  };
+
+  unFavoriteArticle = (slug) => {
+    fetch(articlesURL + `/${slug}/favorite`, {
+      method: 'DELETE',
+      headers: {
+        authorization: `Token ${this.props.user.token}`,
+      },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          return res.json().then(({ errors }) => {
+            return Promise.reject(errors);
+          });
+        }
+        return res.json();
+      })
+      .then(({ article }) => {
+        this.fetchData();
+      });
+  };
+
   updateCurrentPageIndex = (index) => {
     this.setState({ activePageIndex: index }, this.fetchData);
   };
@@ -80,7 +120,12 @@ class Home extends React.Component {
         <div className="container flex justify-between ">
           <section className="main">
             <FeedNav activeTab={activeTab} removeTab={this.removeTab} />
-            <Posts articles={articles} error={error} />
+            <Posts
+              articles={articles}
+              error={error}
+              favoriteArticle={this.favoriteArticle}
+              unFavoriteArticle={this.unFavoriteArticle}
+            />
             <Pagination
               articlesCount={articlesCount}
               articlesPerPage={articlesPerPage}

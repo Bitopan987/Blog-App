@@ -16,7 +16,7 @@ class ProfileBanner extends React.Component {
           </div>
           <div className="setting_wrapper">
             {username === this.props.user.username ? (
-              <Link to="/setting" className="setting">
+              <Link to="/settings" className="setting">
                 <p>Edit Profile Setting</p>
               </Link>
             ) : (
