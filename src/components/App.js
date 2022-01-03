@@ -48,6 +48,15 @@ class App extends React.Component {
     localStorage.setItem(localStorageKey, user.token);
   };
 
+  logout = () => {
+    this.setState({
+      isLoggedIn: false,
+      user: null,
+      isVerifying: true,
+    });
+    localStorage.clear();
+  };
+
   render() {
     if (this.state.isVerifying) {
       return <FullPageSpinner />;
@@ -56,7 +65,7 @@ class App extends React.Component {
       <>
         <Header isLoggedIn={this.state.isLoggedIn} user={this.state.user} />
         {this.state.isLoggedIn ? (
-          <AuthenticatedApp user={this.state.user} />
+          <AuthenticatedApp user={this.state.user} logout={this.logout} />
         ) : (
           <UnauthenticatedApp
             updateUser={this.updateUser}
@@ -78,7 +87,7 @@ function AuthenticatedApp(props) {
         <NewPost user={props.user} />
       </Route>
       <Route path="/settings">
-        <Setting />
+        <Setting user={props.user} logout={props.logout} />
       </Route>
       <Route path="/profile">
         <Profile user={props.user} />

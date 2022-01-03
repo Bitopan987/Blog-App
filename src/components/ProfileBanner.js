@@ -1,21 +1,39 @@
 import React from 'react';
+// import { userProfile } from '../utils/constant';
+import { Link } from 'react-router-dom';
 
 class ProfileBanner extends React.Component {
   render() {
-    let { image, username } = this.props.user;
+    const { bio, image, username, following } = this.props.profile;
+
     return (
       <section className="profile_header ">
         <div className="container">
           <div className="profile_banner">
             <img alt="" src={image || '/images/profile.png'} />
             <h3>{username}</h3>
+            <h2>{bio}</h2>
           </div>
           <div className="setting_wrapper">
-            <a href="/" className="setting">
-              <p>
-                + Follow <span>{username}</span>
-              </p>
-            </a>
+            {username === this.props.user.username ? (
+              <Link to="/setting" className="setting">
+                <p>Edit Profile Setting</p>
+              </Link>
+            ) : (
+              <Link
+                to="/"
+                className="setting"
+                onClick={() =>
+                  this.props.handleFollow(username, this.props.user)
+                }
+              >
+                <p>
+                  {following === false
+                    ? `+ Follow ${username}`
+                    : `UnFollow ${username}`}
+                </p>
+              </Link>
+            )}
           </div>
         </div>
       </section>

@@ -1,17 +1,38 @@
 import React from 'react';
 import Pagination from './Pagination';
+// import { withRouter } from 'react-router-dom';
 import Posts from './Posts';
 import ProfileBanner from './ProfileBanner';
-import { articlesURL } from '../utils/constant';
+import { articlesURL, userProfile } from '../utils/constant';
+import Loader from './Loader';
 
 class Profile extends React.Component {
   state = {
     activeTab: 'author',
     articles: [],
+    profile: null,
+    params: this.props.user.username,
+  };
+
+  fetchProfile = () => {
+    fetch(userProfile + `/${this.props.user.username}`)
+      .then((data) => {
+        if (!data.ok) {
+          data.json().then(({ errors }) => {
+            return Promise.reject(errors);
+          });
+        }
+        return data.json();
+      })
+      .then(({ profile }) => {
+        console.log({ profile });
+        this.setState({ profile });
+      })
+      .catch((error) => console.log(error));
   };
 
   fetchData = () => {
-    fetch(articlesURL + `?/${this.state.activeTab}=${this.props.user.username}`)
+    fetch(articlesURL + `/?${this.state.activeTab}=${this.props.user.username}`)
       .then((res) => {
         if (!res.ok) {
           throw new Error('Can not fetch data for specific user');
@@ -23,13 +44,18 @@ class Profile extends React.Component {
           articles: data.articles,
         });
       })
-      .catch((err) => {
-        this.setState({ error: 'Not able to fetch articles!' });
-      });
+      .catch((err) => this.setState({ error: 'Not able to fetch articles!' }));
+    this.fetchProfile();
   };
 
   componentDidMount() {
     this.fetchData();
+  }
+
+  componentDidUpdate(preProps, preState) {
+    if (preState.params !== this.props.user.username) {
+      this.fetchData();
+    }
   }
 
   handleActive = (tab) => {
@@ -37,12 +63,88 @@ class Profile extends React.Component {
       this.fetchData();
     });
   };
+
+  handleFollow = (username, user) => {
+    const requestOptions = {
+      method: 'POST',
+      headers: {
+        authorization: `Token ${this.props.user.token}`,
+      },
+    };
+    fetch(userProfile + `/${username}/follow`, requestOptions)
+      .then((data) => {
+        if (!data.ok) {
+          return data.json().then(({ errors }) => {
+            return Promise.reject(errors);
+          });
+        }
+        return data.json();
+      })
+      .then(({ profile }) => {
+        console.log(profile);
+        this.fetchProfile();
+      })
+      .catch((errors) => console.log(errors));
+  };
+
+  favoriteArticle = (slug) => {
+    console.log(slug);
+    fetch(articlesURL + `/${slug}/favorite`, {
+      method: 'POST',
+      headers: {
+        authorization: `Token ${this.props.user.token}`,
+      },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          return res.json().then(({ errors }) => {
+            return Promise.reject(errors);
+          });
+        }
+        return res.json();
+      })
+      .then(({ article }) => {
+        console.log(article);
+        this.fetchData();
+      });
+  };
+
+  unFavoriteArticle = (slug) => {
+    console.log(slug, 'unfav');
+    fetch(articlesURL + `/${slug}/favorite`, {
+      method: 'DELETE',
+      headers: {
+        authorization: `Token ${this.props.user.token}`,
+      },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          return res.json().then(({ errors }) => {
+            return Promise.reject(errors);
+          });
+        }
+        return res.json();
+      })
+      .then(({ article }) => {
+        this.fetchData();
+      });
+  };
+
   render() {
-    const { activeTab } = this.state;
+    const { activeTab, profile } = this.state;
+    console.log(profile);
     const { user } = this.props;
+    if (!profile) {
+      return <Loader />;
+    }
     return (
       <section>
-        <ProfileBanner user={user} />
+        <ProfileBanner
+          user={user}
+          profile={profile}
+          handleFollow={this.handleFollow}
+          handleUnFollow={this.handleUnFollow}
+        />
         <div className="profile">
           <div className="profile_wrapper container">
             <div className="nav">
@@ -59,7 +161,11 @@ class Profile extends React.Component {
                 Favourited Articles
               </button>
             </div>
-            <Posts articles={this.state.articles} />
+            <Posts
+              articles={this.state.articles}
+              unFavoriteArticle={this.unFavoriteArticle}
+              favoriteArticle={this.favoriteArticle}
+            />
             <Pagination />
           </div>
         </div>

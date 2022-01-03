@@ -10,6 +10,8 @@ const loginURL = ROOT_URL + 'users/login';
 
 const userVerifyURL = ROOT_URL + 'user';
 
+const userProfile = ROOT_URL + 'profiles';
+
 const localStorageKey = 'app_user';
 
 export {
@@ -20,4 +22,5 @@ export {
   loginURL,
   localStorageKey,
   userVerifyURL,
+  userProfile,
 };

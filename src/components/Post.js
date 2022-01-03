@@ -1,12 +1,22 @@
 import { Link } from 'react-router-dom';
 function Post(props) {
-  const { author, createdAt, title, description, slug } = props;
+  const {
+    author,
+    createdAt,
+    title,
+    description,
+    slug,
+    favoritesCount,
+    favoriteArticle,
+    unFavoriteArticle,
+  } = props;
   let date = new Date(createdAt).toLocaleDateString('en-gb', {
     day: 'numeric',
     timeZone: 'utc',
     year: 'numeric',
     month: 'long',
   });
+  console.log(favoriteArticle, unFavoriteArticle);
   return (
     <article className="post">
       <header className="flex justify-between ">
@@ -28,11 +38,18 @@ function Post(props) {
             </time>
           </div>
         </div>
-        <div className="like_btn">
+        <div
+          className="like_btn"
+          onClick={
+            favoritesCount === 0
+              ? () => favoriteArticle(slug)
+              : () => unFavoriteArticle(slug)
+          }
+        >
           <div>
             <img alt="" className="heart" src="/images/heart.png" />
           </div>
-          <span className="favourites">1</span>
+          <span className="favourites">{favoritesCount}</span>
         </div>
       </header>
       <Link to={`/article/${slug}`} className="link">
