@@ -50,7 +50,7 @@ class NewPost extends React.Component {
       .then(({ article }) => {
         this.props.updateUser(article);
         this.setState({ title: '', description: '', body: '', tagList: '' });
-        // this.props.history.push('/');
+        this.props.history.push('/');
       })
       .catch((errors) => this.setState({ errors }));
   };

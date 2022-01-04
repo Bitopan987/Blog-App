@@ -1,4 +1,5 @@
 .single-post {
+  padding-bottom: 3rem;
   .link {
     text-decoration: none;
   }
@@ -40,5 +41,45 @@
   .green {
     text-decoration: none;
     color: #38e738;
+  }
+}
+
+.button_section {
+  margin-top: 1rem;
+  .edit_btn {
+    border: none;
+    text-decoration: none;
+    font-size: 1rem;
+    background-color: #347edf;
+    color: aliceblue;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    margin-right: 1rem;
+  }
+  .delete_btn {
+    border: none;
+    text-decoration: none;
+    font-size: 1rem;
+    background-color: #f04553;
+    color: aliceblue;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    margin-right: 1rem;
+  }
+}
+
+.tagList {
+  list-style-type: none;
+  margin: 1rem 0;
+
+  display: inline-block;
+  .tag {
+    text-decoration: none;
+    border: 1px solid #dfd9d9;
+    padding: 0.4rem 0.6rem;
+    border-radius: 25px;
+    font-size: 0.8rem;
+    margin-right: 0.4rem;
+    color: #c2bbbb;
   }
 }

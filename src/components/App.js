@@ -59,27 +59,31 @@ class App extends React.Component {
     localStorage.clear();
   };
 
-  // editArticleFn = (article) => {
-  //   console.log(article);
-  //   this.setState({
-  //     article,
-  //   });
-  // };
+  editArticleFn = (article) => {
+    console.log(article);
+    this.setState({
+      article,
+    });
+  };
 
   render() {
-    if (this.state.isVerifying) {
+    const { isLoggedIn, user, isVerifying, article } = this.state;
+    if (isVerifying) {
       return <FullPageSpinner />;
     }
     return (
       <>
-        <Header isLoggedIn={this.state.isLoggedIn} user={this.state.user} />
+        <Header isLoggedIn={isLoggedIn} user={user} />
         {this.state.isLoggedIn ? (
-          <AuthenticatedApp user={this.state.user} logout={this.logout} />
-        ) : (
-          <UnauthenticatedApp
-            updateUser={this.updateUser}
-            user={this.state.user}
+          <AuthenticatedApp
+            isLoggedIn={isLoggedIn}
+            user={user}
+            logout={this.logout}
+            article={article}
+            editArticleFn={this.editArticleFn}
           />
+        ) : (
+          <UnauthenticatedApp updateUser={this.updateUser} user={user} />
         )}
       </>
     );
@@ -102,10 +106,14 @@ function AuthenticatedApp(props) {
         <Profile user={props.user} />
       </Route>
       <Route path="/article/:slug">
-        <SinglePost user={props.user} />
+        <SinglePost
+          user={props.user}
+          isLoggedIn={props.isLoggedIn}
+          editArticleFn={props.editArticleFn}
+        />
       </Route>
       <Route path="/editor/:slug">
-        <PostEdit user={props.user} />
+        <PostEdit user={props.user} article={props.article} />
       </Route>
 
       <Route path="*">
