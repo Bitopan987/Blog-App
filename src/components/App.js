@@ -102,7 +102,7 @@ function AuthenticatedApp(props) {
       <Route path="/settings">
         <Setting user={props.user} logout={props.logout} />
       </Route>
-      <Route path="/profile">
+      <Route path="/profile/:username">
         <Profile user={props.user} />
       </Route>
       <Route path="/article/:slug">

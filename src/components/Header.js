@@ -7,7 +7,13 @@ function Header(props) {
         <NavLink className="brand" to="/">
           <img alt="Brand Logo" src="/images/logo.svg" />
         </NavLink>
-        <nav>{props.isLoggedIn ? <AuthHeader /> : <NonAuthHeader />}</nav>
+        <nav>
+          {props.isLoggedIn ? (
+            <AuthHeader user={props.user} />
+          ) : (
+            <NonAuthHeader />
+          )}
+        </nav>
       </div>
     </header>
   );
@@ -35,7 +41,8 @@ function NonAuthHeader() {
   );
 }
 
-function AuthHeader() {
+function AuthHeader(props) {
+  let { user } = props;
   return (
     <ul className="nav-menu flex item-center ">
       <li className="nav-item">
@@ -54,7 +61,7 @@ function AuthHeader() {
         </NavLink>
       </li>
       <li className="nav-item">
-        <NavLink activeClassName="active" to="/profile">
+        <NavLink activeClassName="active" to={`/profile/${user.username}`}>
           Profile
         </NavLink>
       </li>

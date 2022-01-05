@@ -1,6 +1,5 @@
 import React from 'react';
-import Pagination from './Pagination';
-// import { withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import Posts from './Posts';
 import ProfileBanner from './ProfileBanner';
 import { articlesURL, userProfile } from '../utils/constant';
@@ -11,11 +10,11 @@ class Profile extends React.Component {
     activeTab: 'author',
     articles: [],
     profile: null,
-    params: this.props.user.username,
+    params: this.props.match.params.username,
   };
 
   fetchProfile = () => {
-    fetch(userProfile + `/${this.props.user.username}`)
+    fetch(userProfile + `/${this.state.params}`)
       .then((data) => {
         if (!data.ok) {
           data.json().then(({ errors }) => {
@@ -32,7 +31,7 @@ class Profile extends React.Component {
   };
 
   fetchData = () => {
-    fetch(articlesURL + `/?${this.state.activeTab}=${this.props.user.username}`)
+    fetch(articlesURL + `?${this.state.activeTab}=${this.state.params}`)
       .then((res) => {
         if (!res.ok) {
           throw new Error('Can not fetch data for specific user');
@@ -53,8 +52,10 @@ class Profile extends React.Component {
   }
 
   componentDidUpdate(preProps, preState) {
-    if (preState.params !== this.props.user.username) {
-      this.fetchData();
+    if (preProps.match.params.username !== this.props.match.params.username) {
+      this.setState({ params: this.props.match.params.username }, () => {
+        this.fetchData();
+      });
     }
   }
 
@@ -132,7 +133,6 @@ class Profile extends React.Component {
 
   render() {
     const { activeTab, profile } = this.state;
-    console.log(profile);
     const { user } = this.props;
     if (!profile) {
       return <Loader />;
@@ -155,8 +155,8 @@ class Profile extends React.Component {
                 My Articles
               </button>
               <button
-                onClick={() => this.handleActive('favourited')}
-                className={activeTab === 'favourited' && 'active'}
+                onClick={() => this.handleActive('favorited')}
+                className={activeTab === 'favorited' && 'active'}
               >
                 Favourited Articles
               </button>
@@ -166,7 +166,6 @@ class Profile extends React.Component {
               unFavoriteArticle={this.unFavoriteArticle}
               favoriteArticle={this.favoriteArticle}
             />
-            <Pagination />
           </div>
         </div>
       </section>
@@ -174,4 +173,4 @@ class Profile extends React.Component {
   }
 }
 
-export default Profile;
+export default withRouter(Profile);

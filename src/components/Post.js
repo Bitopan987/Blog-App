@@ -21,7 +21,7 @@ function Post(props) {
     <article className="post">
       <header className="flex justify-between ">
         <div className="flex item-center">
-          <Link to="/profile">
+          <Link to={`/profile/${author.username}`}>
             <img
               className="author-img"
               alt="Profile"
@@ -30,7 +30,7 @@ function Post(props) {
           </Link>
 
           <div className="post-details">
-            <Link to="/profile" className="link">
+            <Link to={`/profile/${author.username}`} className="link">
               <p className="post-author">{author.username}</p>
             </Link>
             <time className="post-time" dateTime="">

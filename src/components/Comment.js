@@ -11,31 +11,15 @@ class Comment extends React.Component {
     },
   };
 
-  handleChange = (event) => {
-    let { name, value } = event.target;
-    let { errors, comment } = this.state;
-    switch (name) {
-      case 'comment':
-        errors.comment = comment ? 'You must be include one word' : '';
-        break;
-      default:
-        break;
-    }
-    this.setState({
-      errors,
-      [name]: value,
-    });
-  };
-
   componentWillMount() {
     this.fetchComment();
   }
 
-  componentDidUpdate(preProps, preState) {
-    if (preState.comments !== this.state.comments) {
-      this.fetchComment();
-    }
-  }
+  // componentDidUpdate(preProps, preState) {
+  //   if (preState.comments !== this.state.comments) {
+  //     this.fetchComment();
+  //   }
+  // }
 
   deleteComment = (slug, id) => {
     const requestOptions = {
