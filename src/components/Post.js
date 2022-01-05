@@ -16,7 +16,7 @@ function Post(props) {
     year: 'numeric',
     month: 'long',
   });
-  console.log(favoriteArticle, unFavoriteArticle);
+
   return (
     <article className="post">
       <header className="flex justify-between ">

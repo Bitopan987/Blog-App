@@ -12,7 +12,6 @@ function Pagination(props) {
     pagesArray.push(i);
   }
 
-  console.log(numberOfPages, 'fgh');
   return (
     <section className="Pagination">
       <div className="prev">
